@@ -1,0 +1,1877 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+        <title>TrustLens app</title>
+        <style>
+            /* disable text selection */
+            /** {
+                -webkit-user-select: none;
+                -khtml-user-select: none;
+                -moz-user-select: -moz-none;
+                -o-user-select: none;
+                user-select: none;
+            }*/
+
+            /* The device with borders */
+            .smartphone {
+                position: relative;
+                width: 360px;
+                height: 640px;
+                margin: auto;
+                border: 16px black solid;
+                border-top-width: 60px;
+                border-bottom-width: 60px;
+                border-radius: 36px;
+            }
+
+            /* The horizontal line on the top of the device */
+            .smartphone:before {
+                content: '';
+                display: block;
+                width: 60px;
+                height: 5px;
+                position: absolute;
+                top: -30px;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: #333;
+                border-radius: 10px;
+            }
+
+            /* The circle on the bottom of the device */
+            .smartphone:after {
+                content: '';
+                display: block;
+                width: 35px;
+                height: 35px;
+                position: absolute;
+                left: 50%;
+                bottom: -65px;
+                transform: translate(-50%, -50%);
+                background: #333;
+                border-radius: 50%;
+            }
+
+            /* The screen (or content) of the device */
+            .smartphone .content {
+                width: 360px;
+                height: 640px;
+                background: white;
+
+
+            }
+
+            /* silver button */
+.button_a:focus {
+  outline: 0;
+}
+
+.button_a {
+  cursor: pointer;
+  align-self: center;
+  padding: 3px;
+  width: 100%;
+  height: 90px;
+  border-radius: 1.09375em;
+  box-shadow: inset 0 0 0 1px #c7aca0, inset 0 1px 2px rgba(255, 255, 255, 0.5), inset 0 -1px 2px rgba(0, 0, 0, 0.5);
+  background: conic-gradient(#e6c9bf, #d2b5aa, #cbaea3, #d4b5ab, #e5c3bd, #d9c0b4, #d9bcb1, #c5a399, #e3c6bc, #e7cac0, #dec0b5, #d3b6ab, #cfada1, #d4b6ac, #e2c6c0, #e2c6c0, #d2b1a6, #d2b1a6, #d1b4a9, #e1c4ba, #e5c9be, #dec1b6, #d3b6ab, #ceb0a6, #cfada3, #d2b5aa, #dabdb2, #e5c9be, #e6c9bf) content-box, linear-gradient(#e5c9be, #e5c9be) padding-box, radial-gradient(rgba(120, 120, 120, 0.9), rgba(120, 120, 120, 0) 70%) 50% bottom/80% 0.46875em no-repeat border-box;
+}
+/* */
+
+            /* .button:focus {outline:0;}  */
+
+            .button {
+                width: 100%;
+                height: 80px;
+                background:#A6B3BB; /* #A6B3BB; #4f677880; #A7B9C5; #BCCAD3; #8DA4B4; #6C8C9D; light-grey; */
+                font-size :12pt;
+                font-weight: bold;
+                margin-top:1px;
+                margin-bottom:7px;
+                -webkit-column-break-inside: avoid;
+                page-break-inside: avoid;
+                break-inside: avoid;
+                box-shadow: 0 0 0 1px  #4f6778, 0 2px 4px 0 rgba(0,0,0,0.2), 0 2px 4px 0 rgba(0,0,0,0.19);
+                border-radius:1px;
+                outline-color: #4f6778;
+            }
+
+
+            .home_button {
+                width: 50%;
+                height: 80px;
+                background:#A6B3BB; /* #A6B3BB; #4f677880; #A7B9C5; #BCCAD3; #8DA4B4; #6C8C9D; light-grey; */
+                font-size :14pt;
+                font-weight: bold;
+                margin-top:1px;
+                margin-bottom:7px;
+                -webkit-column-break-inside: avoid;
+                page-break-inside: avoid;
+                break-inside: avoid;
+                box-shadow: 0 0 0 1px  #4f6778, 0 2px 4px 0 rgba(0,0,0,0.2), 0 2px 4px 0 rgba(0,0,0,0.19);
+                border-radius:1px;
+                outline-color: #4f6778;
+            }
+            
+            .settings_button {
+                width: 100%;
+                background:whitesmoke;
+                font-size :12pt;
+                margin-top:8px;
+                margin-top:1px;
+                margin-bottom:7px;
+                box-shadow: 0 0 0 1px  #4f6778, 0 2px 4px 0 rgba(0,0,0,0.2), 0 2px 4px 0 rgba(0,0,0,0.19);
+                border-radius:1px;
+                outline-color: #4f6778;
+            }
+
+            .submit_button {
+                padding: 10px;
+                background:#A6B3BB; /* #A6B3BB; #4f677880; #A7B9C5; #BCCAD3; #8DA4B4; #6C8C9D; light-grey; */
+                font-size :12pt;
+                font-weight: bold;
+                vertical-align: bottom;
+                box-shadow: 0 0 0 1px  #4f6778, 0 2px 4px 0 rgba(0,0,0,0.2), 0 2px 4px 0 rgba(0,0,0,0.19);
+                border-radius:1px;
+                outline-color: #4f6778;
+            }
+
+            .back_button {
+                width: 100%;
+                height: 40px;
+                background:#A6B3BB; /* #A6B3BB; #4f677880; #A7B9C5; #BCCAD3; #8DA4B4; #6C8C9D; light-grey; */
+                font-size :12pt;
+                margin-bottom:0px;
+                font-weight: bold;
+                box-shadow: 0 0 0 1px  #4f6778, 0 2px 4px 0 rgba(0,0,0,0.2), 0 2px 4px 0 rgba(0,0,0,0.19);
+                border-radius:1px;
+                outline-color: #4f6778;
+            }
+
+            .close {
+
+                width: 50px;
+                height: 20px;
+                background:red;
+                border-radius: 50%;
+            }
+
+            .popup {
+                background: light-grey;
+                position: relative;
+                z-index: 5000;
+                width: 360px;
+                height: 640px;   
+                display: "inline";
+            }
+
+            .home {
+                -moz-column-count: 2;
+                column-count:2;
+                column-gap:8px;
+                }
+            
+            .prof_settings {
+                text-align: center;
+            }
+
+            #main_button {
+                margin-top:200px;
+                margin-left:100px;
+            }
+
+            .popup_p {
+                padding:20px;
+            }
+
+            .hidden_box {
+                display: none;
+
+            }
+
+            .screen_box{
+                width: 100%;
+                height: 100%;
+                /* min-height: 632px; */
+                background: white;
+            }
+
+            .home_menu{
+               
+            }
+
+            .locate_screen {
+                max-width: 100%;
+            } 
+
+            .locate_table {
+                border-collapse: collapse;
+                border: 5px solid white;
+                text-align: center;
+                margin: 0px auto; 
+                max-width: 80%;
+                background: #d6dbdf;
+                word-break: break-word;
+
+            } 
+            .locate_table_unselected {
+                width: 100%;
+                border-collapse: collapse;
+                border: 2px solid white;
+                text-align: center;
+                margin: 0px auto; 
+                max-width: 100%;
+                background: #d6dbdf;
+            } 
+            .locate_table_selected {
+                border-collapse: collapse;
+                border: 2px solid white;
+                text-align: center;
+                margin: 0px auto; 
+                max-width: 100%;
+                background: ##c5cdd1;
+            }
+
+            .locate_table_larger {
+                border-collapse: collapse;
+                border: 5px solid white;
+                text-align: center;
+                margin: 0px auto; 
+                max-width: 100%;
+                background: #d6dbdf;
+            } 
+
+            .locate_table td {
+                border: 5px solid white;
+                padding: 0px;
+            }
+            .locate_table_unselected td {
+                border: 2px solid white;
+                padding: 10px;
+                word-break: break-word;
+            }
+            .locate_table_selected td {
+                border: 5px solid white;
+                padding: 5px;
+            }
+            .located_systems_table {
+                border-collapse: collapse;
+                border: 1px solid black;
+                text-align: center;
+                margin: 0px auto; 
+            }
+
+            .located_systems_table td {
+                border: 1px solid black;
+                padding: 5px;
+            }
+
+            .located_systems_table tr:nth-child(odd) {
+                background: #4f677880;
+            }
+
+            .located_systems_table th {
+                border: 1px solid black;
+                padding: 5px;
+                background: #4f6778;
+                color:white
+            }
+
+            .plain_table {
+               border-collapse: collapse;border:0;text-align: left;
+            }
+
+            .plain_table td {
+                border:0;
+                padding:0; margin:0;
+            }
+
+            
+            h5 { font-weight:normal; }
+            h6 { font-weight:normal; }
+            h4.normal { font-weight:normal; }
+
+            .f1 {font-size: 2em}
+            .f2 {font-size: 1.5em}
+            .f3 {font-size: 1.17em}
+            .f4 {font-size: 1em; font-weight:normal;}
+            .f5 {font-size: 0.83em; font-weight:normal;}
+            .f6 {font-size: 0.67em}
+            .f7 {font-size: 0.5em}
+
+            .slidecontainer {
+                width: 100%;margin: 0 auto;
+            }
+
+            .slider {
+                -webkit-appearance: none;
+                width: 100%;
+                height: 10px;
+                border-radius: 5px;
+                background: #A6B3BB;
+                outline: none;
+                opacity: 1;
+                -webkit-transition: .2s;
+                transition: opacity .2s;
+            }
+
+            .slider:hover {
+                opacity: 1;
+            }
+
+            .slider::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                appearance: none;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background: #4F6778;
+                cursor: pointer;
+            }
+
+            .slider::-moz-range-thumb {
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background: #4F6778;
+                cursor: pointer;
+            }
+
+    
+        </style>
+
+        <script src="jquery/jquery-3.4.1.min.js"></script>
+        <!-- <script src="https://kit.fontawesome.com/7f10f1bb05.js"></script> -->
+
+        <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+        <script type="text/javascript" charset="utf-8" src="pulltorefresh/index.umd.js"></script>
+
+        <script>
+
+            const custom_grey = "#4F6778";
+            const custom_grey_50 = "#A6B3BB";
+            const custom_grey_25 = "#c5cdd1";
+            const custom_grey_12 = "#d6dbdf";
+            const grey = "#808080";
+
+            const server_path_trustlens = "http://trustlens.abdn.ac.uk/tomcat/demo-0.0.1-SNAPSHOT/"; 
+            const server_path_localhost = "http://localhost:8080/demo/";
+            const server_path_from_emu = "http://10.0.2.2:8080/demo/"
+            var server_path = server_path_trustlens;
+
+            var ua;
+            var isAndroid;
+
+            const connecting_msg = "Connecting to TrustLens server...";
+
+            const error_no_connection_msg =     "TrustLens server can't be reached<br/>"
+                                            +   "Please check your connection <br/>"
+                                            +   "Pull to refresh";  
+
+            const error_no_questionbuttons_msg = error_no_connection_msg;
+
+            const post_timeout = 15000;
+
+            var refresher;
+
+            var questionbuttons_got = false;
+
+            var address_postcode ="";
+
+            var gps_latitude;
+
+            var gps_longitude;
+
+            var latitude; 
+
+            var longitude;
+
+            var radius=50;
+
+            var locatedSystemsList = [];
+
+            var located_systems_currently_selected;
+
+            var historySystemsList = [];
+
+            var history_systems_currently_selected;
+
+            var scannedSystemList = [];
+
+            var scanned_system_currently_selected;
+
+            var currentIotSystem;
+
+            var currentScannedSystem;
+
+            var refresher_styles = "\n.__PREFIX__ptr {\n background:#4f677810;box-shadow: inset 0 0px 0px #A6B3BB;\n  pointer-events: none;\n  font-size: 0.85em;\n  font-weight: bold;\n  top: 0;\n  height: 0;\n  transition: height 0.3s, min-height 0.3s;\n  text-align: center;\n  width: 100%;\n  overflow: hidden;\n  display: flex;\n  align-items: flex-end;\n  align-content: stretch;\n}\n\n.__PREFIX__box {\n  padding: 10px;\n  flex-basis: 100%;\n}\n\n.__PREFIX__pull {\n  transition: none;\n}\n\n.__PREFIX__text {\n  margin-top: .33em;\n  color: rgba(0, 0, 0, 0.3);\n}\n\n.__PREFIX__icon {\n  color: rgba(0, 0, 0, 0.3);\n  transition: transform .3s;\n}\n\n/*\nWhen at the top of the page, disable vertical overscroll so passive touch\nlisteners can take over.\n*/\n.__PREFIX__top {\n  touch-action: pan-x pan-down pinch-zoom;\n}\n\n.__PREFIX__release {\n  .__PREFIX__icon {\n    transform: rotate(180deg);\n  }\n}\n";;
+
+
+            var data_collection = "The system collects the following data: <br> <ul><li>Short audio recordings that are processed to determine whether they contain human conversation. </li><li> The device ID that is being advertised when a device (such as a smartphone) automatically searches for available WiFi and Bluetooth networks</li></ul>";
+            var identifiable = "Yes. The data can be potentially used to identify an individual in combination with other data. ";
+            var storage = "Collected data is stored for 24 hours and then deleted. ";
+
+            var purpose = "Collected data are used to turn on lights at the bus stop when a person is present. <br>The data is also used to generate daily anonymised statistics on how many individual passengers visit the bus stop during the 24 hours period. ";
+            var sharing = "Personally identifiable data are never shared with third parties. Anonymised aggregated statistics may be shared with third parties, which may include government agencies, educational institutions and private companies. ";
+            var access ="Due to privacy features embedded in the system design, raw data cannot be made available to you for inspection. You may request a sample of the aggregated anonymised statistics. ";
+
+            var contact ="To find out more about the system you may send your query to Project Manager John Doe (sample_email@somedomain.com). ";
+
+            var privacy = "A privacy policy (20 pages) concerning use of your data is available from this link (Note: privacy policy content not part of this survey). ";
+
+            var protected_privacy ="We comply with the latest government regulation on collection of personally identifiable information governed by the General Data Protection Regulation. The system was designed with built-in privacy features that ensure the collected data is processed only by the device located on the bus stop. At no point is the collected identifiable information uploaded to online servers. The collected data are deleted after 24 hours directly by the device that collected them. ";
+
+            var risk = "The system has been assessed by a software risk assessment tool which inspected individual elements of the system. <br><br>The risk impact factor of this system is <strong>LOW</strong>.<br><br>The highest probability of an adversary attack would come from physical tampering with the device. Please report any suspicious activities or attached devices that might not look as though they are genuine parts of the system. ";
+
+            var localStorage;
+            var trust_profile=0;
+
+            var screens = ["Home", "Main", "History", "Scan", "ScannedSystem", "Locate", "LocatedSystems", "Settings", "About", "Popup"];
+
+            var current_screen="None";
+            var previous_screen="None";
+
+            var profile_already_set="0";
+            var iot_system_already_set="0";
+            var current_iot_system;
+
+            var locate_table_gps_selected = false;
+            var locate_table_address_selected = false;
+
+            var locate_table_gps_selected = false;
+            var locate_table_address_selected = false;
+
+            var locate_table_address_current_value;
+
+            var buttons_array = [   {id: "data_collection",     button_text: "Data collection",                     trust_level: 2,     mocked_text: data_collection},
+                                    {id: "identifiable",        button_text: "Is collected data identifiable?",     trust_level: 2,     mocked_text: identifiable},
+                                    {id: "storage",             button_text: "Duration of Storage",                 trust_level: 3,     mocked_text: storage},
+                                    {id: "purpose",             button_text: "Purpose of collected data",           trust_level: 1,     mocked_text: purpose},
+                                    {id: "sharing",             button_text: "Data Sharing",                        trust_level: 1,     mocked_text: sharing},
+                                    {id: "access",              button_text: "Data Access",                         trust_level: 3,     mocked_text: access},
+                                    {id: "contact",             button_text: "Contact Information",                 trust_level: 3,     mocked_text: contact},
+                                    {id: "privacy",             button_text: "Privacy Policy",                      trust_level: 2,     mocked_text: privacy},
+                                    {id: "protected_privacy",   button_text: "How your Privacy is Protected",       trust_level: 1,     mocked_text: protected_privacy},
+                                    {id: "risk",                button_text: "Risk Indicator",                      trust_level: 3,     mocked_text: risk},
+                                    
+            ];
+
+            function loadApp() {
+                document.addEventListener("deviceready", onDeviceReady, false);
+
+                // 
+                window.onerror = function(message, source, lineno, colno, error) { console.log(message); showScreen(current_screen); };
+
+                ua = navigator.userAgent.toLowerCase();
+                isAndroid = ua.indexOf('android') > -1;
+                if (!isAndroid ) {
+                    $("#menu_for_non_android").show();
+                    server_path = server_path_localhost;
+
+                }
+
+                var parameters_in_url = new URLSearchParams(window.location.search);
+                if ( parameters_in_url !=null ) 
+                    if (parameters_in_url.get("server") != null )
+                        switch (parameters_in_url.get("server")) {
+                            case "localhost":
+                                 server_path = server_path_localhost;
+                                 break;
+                            case "from_emu":
+                                server_path = server_path_from_emu;
+                                break;
+                            case "trustlens":
+                                server_path = server_path_trustlens;
+                                break;
+                            default:
+                                server_path = decodeURIComponent(parameters_in_url.get("server"));
+                        }
+                // alert(server_path);
+
+                // radius slider value
+                var slider = document.getElementById("radius_slider");
+                var output = document.getElementById("radius_slider_value");
+                output.innerHTML = slider.value + " m";
+                slider.oninput = function() {
+                    if ( this.value == 1000) {
+                        output.innerHTML = "1 Km";    
+                    }
+                    else  {
+                        output.innerHTML = this.value + " m";
+                    }
+                    radius = slider.value;
+                }
+
+                localStorage = window.localStorage;
+                
+                loadInitialScreen();
+            
+            }
+
+            function loadInitialScreen() {
+                // reset previous screen
+                previous_screen = "None"
+                // console.log("loadInitialScreen");
+                profile_already_set = localStorage.getItem("profile_already_set"); 
+                if ( profile_already_set == 1 ) {
+                        var govt_trust_value =  localStorage.getItem("govt_trust"); 
+                        var people_trust_value =  localStorage.getItem("people_trust"); 
+                        var trust_profile_value =  localStorage.getItem("trust_profile"); 
+                        // console.log(profile_already_set);
+                        // console.log(govt_trust_value);
+                        // console.log(people_trust_value);
+                        // console.log(trust_profile_value);
+                    trust_profile = localStorage.getItem("trust_profile"); 
+                    iot_system_already_set = localStorage.getItem("iot_system_already_set");
+                    console.log("iot_system_already_set " + iot_system_already_set);
+                    if ( iot_system_already_set == "1" ) {
+                        current_iot_system = localStorage.getItem("current_iot_system");                    
+                        localstoragelist = JSON.parse(localStorage.getItem("history_systems_list"));
+                        if (localstoragelist != null)
+                            historySystemsList = localstoragelist;
+                        else 
+                        historySystemsList = [];
+                        showScreen("Home");
+                    }
+                    else 
+                        showScreen("Home");
+                } else {
+                    showScreen("Settings");
+                }
+            }
+
+            function showScreen(screen_name) {
+                if ( ( screen_name != current_screen) && (screens.includes(screen_name)) ) {
+                    if ( screen_name=="Popup")
+                        previous_screen="Main";
+                    else /* if (screen_name!="Scan") */ {
+                        previous_screen=current_screen;
+                        current_screen=screen_name;
+                    }
+                    switch(screen_name) {
+                        case "Home":
+                            showHome();
+                            break;
+                        case "Main":
+                            showMainScreen();
+                            break;
+                        case "Scan":
+                            showScan();
+                            break;
+                        case "ScannedSystem":
+                            showScannedSystem();
+                            break;
+                        case "Locate":
+                            showLocate();
+                            break;
+                        case "LocatedSystems":
+                            showLocatedSystems();
+                            break;
+                        case "Settings":
+                            showProfileSettings();
+                            break;
+                        case "Popup":
+                            //showPopup();
+                            break;
+                        case "History":
+                            showHistory();
+                            break;
+                        case "About":
+                            showAbout();
+                            break;
+                        default:
+                            // code block
+                    }
+                }
+                                // var a = b;
+                // console.log("Previous screen: " + previous_screen + "\tCurrent screen: " + current_screen );
+            }
+
+
+            function hideAllScreens() {
+                 var boxes = document.getElementsByClassName("hidden_box");
+                 for (var i=0; i<boxes.length; i++ ) {
+                    boxes[i].style.display = "none";}
+            }
+
+            function hideAllScreensAndShowOnly (i) {
+                hideAllScreens();
+                console.log(i);
+                if (refresher != null )
+                    refresher.destroy();
+                document.getElementById(i).style.display = "block";
+                scrollToTop();
+            }
+
+            function scrollToTop() {
+                document.body.scrollTop = 0; // For Safari
+                document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+            }
+
+            function showPreviousScreen() {
+                console.log("Current screen: " + current_screen + ". Previous screen: " + previous_screen);
+                if ( !(["None", "Settings", "Scan"].includes(previous_screen)) ) {
+                    showScreen(previous_screen);
+                    previous_screen="None";
+                } else if ( (["None", "Settings", "Scan"].includes(previous_screen)) && ( current_screen == "Main" || current_screen == "Locate" || current_screen == "History" || current_screen == "ScannedSystem" ) ) {
+                    showScreen("Home");
+                    previous_screen="None";
+                } else if ( (["None", "Settings", "Scan"].includes(previous_screen)) && ( current_screen == "LocatedSystems" ) ) {
+                    showScreen("Locate");
+                    previous_screen="None";
+                } else if ( (["Popup"].includes(previous_screen)) ) {
+                    showScreen("Main");
+                    previous_screen="None";
+                } else if ( (["None", "Settings", "Scan"].includes(previous_screen)) && current_screen == "Home" ) {
+                    window.plugins.appMinimize.minimize();
+                }
+            }
+
+            function showHome() {
+                // document.getElementById("screen").style.columnCount = 1;
+                document.getElementById("home_current_iot_system").style.display = "none";
+                
+                iot_system_already_set = localStorage.getItem("iot_system_already_set");
+                console.log("iot_system_already_set " + iot_system_already_set);
+                if ( iot_system_already_set == "1" ) {
+                    current_iot_system = localStorage.getItem("current_iot_system");
+                    historySystemsList = JSON.parse(localStorage.getItem("history_systems_list"));
+                    document.getElementById("home_current_iot_system_info").innerHTML = current_iot_system;
+                    document.getElementById("home_current_iot_system").style.display="block";
+                }
+                hideAllScreensAndShowOnly("home_box");
+            }
+
+            function showHistory() {
+                // historySystemsList = [                 
+                //     { id: "abc", name: "description1", location: "location1", otherinfo: "otherinfo1"},
+                //     { id: "def", name: "description2", location: "location2", otherinfo: "otherinfo2"},
+                //     { id: "tvw", name: "description3", location: "location3", otherinfo: "otherinfo3"},
+                //     { id: "xyz", name: "description4", location: "location4", otherinfo: "otherinfo4"},
+                // ];
+
+                historySystemsList = JSON.parse(localStorage.getItem("history_systems_list"));
+
+                history_systems_currently_selected = [];
+                for (i in historySystemsList)
+                    history_systems_currently_selected.push(false);
+
+                $("#history_systems_table").children().remove();
+                buildIotSystemsTable(historySystemsList, "history_systems_table", history_systems_currently_selected, false) 
+
+                hideAllScreensAndShowOnly("history_systems_box");
+            }
+
+            function showScannedSystem() {
+                hideAllScreensAndShowOnly("scanned_system_box");
+                tryScannedSystemDetailsRequest();
+            }
+            function showScannedSystemsDetailsResponse() {
+
+                $("#scanned_system_table").children().remove();
+                buildIotSystemsTable(scannedSystemList, "scanned_system_table", scanned_system_currently_selected, true)
+                hideAllScreensAndShowOnly("scanned_system_box");
+            }
+
+            function showScan() {
+                scan();
+            }
+
+            function showLocate() {
+                hideAllScreensAndShowOnly("locate_box");
+            }
+
+            function showLocatedSystems() {
+                hideAllScreensAndShowOnly("located_systems_box");
+                tryLocatedSystemRequest();
+            }
+
+            function buildIotSystemsTable(list, selector, currently_selected_list, single_item_always_selected) {
+                for (var i = 0; i < list.length; i++) {
+                    var t ="";
+                    s = list[i];
+                    var fields_count = Object.keys(s).length;
+                    var fields = Object.keys(s);
+
+                    var tr1 = document.createElement('tr');
+                    var td1 = document.createElement('td');
+                    tr1.setAttribute("index",i);
+                    if (!single_item_always_selected)
+                        tr1.onclick = function() { table_switch_selection(selector, this.getAttribute("index"), currently_selected_list) };
+                    var table2 = document.createElement('table');
+                    table2.classList.add("locate_table_unselected");
+                    var tr21 = document.createElement('tr');
+                    var td21 = document.createElement('td');
+                    td21p = document.createElement('p');
+                    td21p.style.fontSize  = "1em";
+                    td21p.appendChild(document.createTextNode(s["name"]));
+                    td21.appendChild(td21p);
+                    tr21.appendChild(td21);
+                    table2.appendChild(tr21);
+
+                    for (var f in fields) {
+                        if ( (s[fields[f]] != "") && (fields[f]!="name") ){
+                            var tr22 = document.createElement('tr');
+                            tr22.style.display = "none";
+                            var td22 = document.createElement('td');
+                            var table3 = document.createElement('table');
+                            table3.classList.add("plain_table");
+                            var tr31 = document.createElement('tr');
+                            var td31 = document.createElement('td');
+                            td31.appendChild(document.createTextNode(formatIotSystemField(fields[f]) + ": "));
+                            tr31.appendChild(td31);
+                            table3.appendChild(tr31);
+                            var tr32 = document.createElement('tr');
+                            var td32 = document.createElement('td');
+                            td32.appendChild(document.createTextNode(s[fields[f]]));
+                            tr32.appendChild(td32);
+                            table3.appendChild(tr32);
+                            td22.appendChild(table3);
+                            tr22.appendChild(td22);
+                            table2.appendChild(tr22);
+                            t += firstToUpperCase(fields[f]) + ": " + s[fields[f]] + "\n";
+                        }
+                    }
+                    // console.log(t);
+                    t="";
+                    td1.appendChild(table2);
+                    tr1.appendChild(td1);
+                    console.log(tr1);
+                    document.getElementById(selector).appendChild(tr1);
+                }
+
+                // highlight if single item always selected
+                if (single_item_always_selected) {
+                    let table = document.getElementById(selector);
+                    let rows = table.children;
+                    let rowsj = rows[0].children[0].children[0].children;
+                        for (let l=0; l<rowsj.length; l++) {
+                            rowsj[l].style.background = custom_grey_50;
+                        }
+                    rowsj[0].style.fontWeight="bold";
+                    for (let l=1; l<rowsj.length; l++) {
+                        rowsj[l].style.display = "";
+                        }
+                }
+            }
+
+            function IotSystemsToText(s) {
+                var t ="";
+                var fields = Object.keys(s);
+                for (var f in fields)
+                    if (s[fields[f]] != "")
+                    t += firstToUpperCase(fields[f]) + ": " + s[fields[f]] + "\n";
+                return t;
+            }
+
+
+            function showLocatedSystemsResponse() {                
+                // Builds the HTML Table out of locatedSystemsList.
+                function buildHtmlTable(selector) {
+                  var columns = addAllColumnHeaders(locatedSystemsList, selector);
+                  for (var i = 0; i < locatedSystemsList.length; i++) {
+                    var row$ = $('<tr/>');
+                    for (var colIndex = 0; colIndex < columns.length; colIndex++) {
+                      var cellValue = locatedSystemsList[i][columns[colIndex]];
+                      if (cellValue == null) cellValue = "";
+                      row$.append($('<td />').html(cellValue));
+                    }
+                    $(selector).append(row$);
+                  }
+                }
+
+                // Adds a header row to the table and returns the set of columns.
+                // Need to do union of keys from all records as some records may not contain
+                // all records.
+                function addAllColumnHeaders(locatedSystemsList, selector) {
+                  var columnSet = [];
+                  var headerTr$ = $('<tr/>');
+
+                  for (var i = 0; i < locatedSystemsList.length; i++) {
+                    var rowHash = locatedSystemsList[i];
+                    for (var key in rowHash) {
+                      if ($.inArray(key, columnSet) == -1) {
+                        columnSet.push(key);
+                        headerTr$.append($('<th />').html(key));
+                      }
+                    }
+                  }
+                  $(selector).append(headerTr$);
+
+                  return columnSet;
+                }
+
+                function addRowHandlers(tableId) {
+                      var table = document.getElementById(tableId);
+                      var rows = table.getElementsByTagName("tr");
+                      for (i = 1; i < rows.length; i++) {
+                        var currentRow = table.rows[i];
+                        var createClickHandler = function(row) {
+                          return function() {
+                            var cell = row.getElementsByTagName("td")[0].innerHTML + " " + row.getElementsByTagName("td")[1].innerHTML + " " + row.getElementsByTagName("td")[2].innerHTML;
+                            localStorage.setItem("iot_system_already_set", "1");
+                            // !!! should be only id not all the description
+                            localStorage.setItem("current_iot_system", cell);
+                            showScreen("Main");
+                          };
+                        };
+                        currentRow.onclick =  createClickHandler(currentRow);
+                      }
+                }
+
+                // get JSON from server based on location
+                /*
+                locatedSystemsList = [
+                  { "id": "abc", "description": "description1", "location": "location1", "otherinfo": "otherinfo1"},
+                  { "id": "def", "description": "description2", "location": "location2", "otherinfo": "otherinfo2"},
+                  { "id": "tvw", "description": "description3", "location": "location3", "otherinfo": "otherinfo3"},
+                  { "id": "xyz", "description": "description4", "location": "location4", "otherinfo": "otherinfo4"},
+                ];
+                */
+
+                // // empty table
+                $("#located_systems_table_old").children().remove();
+                // // parse JSON e create table
+                // buildHtmlTable('#located_systems_table');
+
+                
+                $("#located_systems_table").children().remove();
+                // parse JSON e create table
+                located_systems_currently_selected = [];
+                for (i in locatedSystemsList)
+                    located_systems_currently_selected.push(false);
+                console.log(located_systems_currently_selected);
+                buildIotSystemsTable(locatedSystemsList, 'located_systems_table', located_systems_currently_selected, false);
+
+
+
+                // load content
+                // document.getElementById("screen").innerHTML = document.getElementById("located_systems_box").innerHTML;
+                hideAllScreensAndShowOnly("located_systems_box");
+
+                // add onclick
+                // addRowHandlers("located_systems_table");
+
+            }
+
+            function analyseLocatedSystem() {
+                analyseSystem(locatedSystemsList, located_systems_currently_selected);
+            }
+
+            function analyseHistorySystem() {
+                analyseSystem(historySystemsList, history_systems_currently_selected);
+            }
+
+            function analyseSystem(systemsList, systems_currently_selected) {
+                var found = false;
+                for (let i=0;i<systemsList.length; i++)
+                    if ( systems_currently_selected[i]==true) {
+                        currentIotSystem = systemsList[i];
+                        addToHistorySystemsList(systemsList[i]);
+                        found = true;
+                    }
+                    if ( found )
+                        showScreen("Main");
+                    else 
+                        navigator.notification.alert("Please select one of the listed systems", null, "TrustLens", "OK")
+            }
+
+            function analyseScannedSystem() {
+                currentIotSystem = currentScannedSystem;
+                showScreen("Main");
+            }
+
+            function showProfileSettings() {
+                // document.getElementById("screen").style.columnCount = 1;
+                // document.getElementById("screen").innerHTML = document.getElementById("profile_settings_box").innerHTML;
+                hideAllScreensAndShowOnly("profile_settings_box");
+        
+            }
+
+            function showMainScreen() {
+                //document.getElementById("screen").style.columnCount = 2;
+                
+                // retrieve current iot system
+                current_iot_system = localStorage.getItem("current_iot_system");
+                // document.getElementById("main_current_iot_system_info").innerHTML = current_iot_system;
+
+                if ( currentIotSystem!= null)
+                    document.getElementById("main_current_iot_system_info").innerHTML = currentIotSystem["name"];
+
+                // hide all buttons
+                    $("#data_collection_button").hide();
+                    $("#identifiable_button").hide();
+                $("#storage_button").hide();
+                        $("#purpose_button").hide();
+                        $("#sharing_button").hide();                
+                $("#access_button").hide();
+                $("#contact_button").hide();
+                    $("#privacy_button").hide();
+                        $("#protected_privacy_button").hide();
+                $("#risk_button").hide();
+
+                // retrieve settings
+                trust_profile =  localStorage.getItem("trust_profile"); 
+
+                if (trust_profile>=1) {
+                    $("#purpose_button").show();
+                    $("#sharing_button").show();
+                    $("#protected_privacy_button").show();
+                }
+                if (trust_profile>=2) {
+                    $("#data_collection_button").show();
+                    $("#identifiable_button").show();
+                    $("#privacy_button").show();
+                }
+                if (trust_profile>=3) {
+                    $("#storage_button").show();
+                    $("#access_button").show();
+                    $("#contact_button").show();
+                    $("#risk_button").show();
+                }
+
+                
+                // document.getElementById("screen").innerHTML = document.getElementById("main_page_box").innerHTML;
+                hideAllScreensAndShowOnly("main_page_box");
+
+                if ( questionbuttons_got ) {
+                    buildButtons();
+                }
+                else {
+                    // retrieve questionbuttons
+                    tryButtonsRequest();
+                }
+
+        
+            }
+            
+            function buildButtons() {
+                 // remove buttons
+                $("#main_page").children().remove();                
+                // document.getElementById("main_page").style.columnCount = 2;
+                // build buttons
+                var count = buttons_array.length;
+                var container= document.getElementById('main_page'); // reference to containing elm
+                container.innerHTML="";
+                for(var i=0;i<count;i++){
+                    var b= buttons_array[i];
+                    if ( trust_profile<=b.trust_level  ) {
+                        var button = "<button class=\"button\" id=\"" + b.id + "\" onclick=\"showPopup('" + b.id + "')\">" + b.button_text + "</button>";                        
+                        container.innerHTML+=button;
+                    }
+                }
+                document.getElementById("main_page_msg_box").style.display = "none";
+                document.getElementById("main_page").style.display = "block";
+            }
+
+            function submitGovtPeopleTrust() {
+                 var govt_trust_value = $('input:radio[name=govt_trust]:checked').val();
+                 var people_trust_value = $('input:radio[name=people_trust]:checked').val();
+
+                if ( govt_trust_value > 0 && people_trust_value > 0 )  {
+                    // save values
+                    localStorage.setItem("profile_already_set", "1");
+                    localStorage.setItem("govt_trust", govt_trust_value);
+                    localStorage.setItem("people_trust", people_trust_value);
+                    var trust_profile_value = computeTrustProfile (govt_trust_value, people_trust_value);
+                    localStorage.setItem("trust_profile", trust_profile_value);
+                    showPreviousScreen();
+                } else { 
+                    // window.alert("Please select a value for each question");
+                    navigator.notification.alert("Please select a value for each question", null, "TrustLens", "OK")
+                }
+            }
+
+            function computeTrustProfile(govt, people) {
+                var sum = parseInt(govt, 10) + parseInt(people, 10);
+                var scaled_sum = Math.floor((sum+1)/3);
+                console.log(sum);
+                console.log(scaled_sum);
+                return scaled_sum;
+
+            }
+
+            function showPopup (element) {
+                previous_screen="Main";
+                current_screen="Popup";
+
+                hideAllScreens();
+                tryPopupRequest(element);
+            } 
+        
+
+            // device APIs are available
+            function onDeviceReady() {
+                navigator.app.overrideButton("menubutton", true);  
+                document.addEventListener("pause", onPause, false);
+                document.addEventListener("resume", onResume, false);
+                document.addEventListener("menubutton", onMenuKeyDown, false);
+                document.addEventListener("backbutton", onBackButtonDown, false);
+                document.addEventListener("searchbutton", onSearchKeyDown, false);
+
+            }
+
+            function onPause() {
+                // window.alert("Pause");
+            }
+
+            function onResume() {
+                // window.alert("Resume");
+            }
+
+            function onMenuKeyDown() {
+                window.alert("Menu");
+            }
+
+            function onBackButtonDown() {
+                // add more complexity, add status variable to identify currently running activity
+                showPreviousScreen();
+            }
+
+            function onSearchKeyDown() {
+                window.alert("Search");
+            }
+
+            function scan() {
+                console.log("scan()");
+                if ( isAndroid ) {
+                    cordova.plugins.barcodeScanner.scan(
+                    function (result) {
+                        if (result.cancelled ) {
+                            // delete alert
+                            // alert("Cancelled");
+                            // go back to previous screen
+                        } else if (result.format == "QR_CODE") {
+                                // delete alert
+                                navigator.notification.alert("QR code detected\n" +
+                                                            result.text + "\n", 
+                                                            null, "TrustLens", "OK")
+                                //alert("QR code detected\n" +                                   "Result: " + result.text + "\n"); 
+                                localStorage.setItem("iot_system_already_set", "1");
+                                localStorage.setItem("current_iot_system", result.text);
+                                var newSystem = {   name: result.text.substring(0,10), 
+                                                    qrcode: result.text};
+                                // addToHistorySystemsList(newSystem);
+                                // showScreen("Main");
+                                // currentIotSystem = newSystem;
+                                currentScannedSystem = newSystem;
+                                showScreen("ScannedSystem");
+                            } else {
+                                // alert("This is not a QR code");
+                                navigator.notification.alert("This is not a QR code", null, "TrustLens", "OK");
+                            }
+                    },
+                    function (error) {
+                        alert("Scanning failed: " + error);
+                    });
+                } else {
+                    var newSystem = {   name:   "Scanned System 1 ", 
+                                        qrcode: "QRcode1"};
+                                        // qrcode: "GH68-48395A"};
+                    currentScannedSystem = newSystem;
+                    showScreen("ScannedSystem");
+
+                }
+            }
+
+            function addToHistorySystemsList(newSystem) {
+                localstoragelist = JSON.parse(localStorage.getItem("history_systems_list"));
+                if (localstoragelist != null)
+                    historySystemsList = localstoragelist;
+                else 
+                    historySystemsList = [];
+
+                var already_present_index = -1;
+                for (var i=0; i<historySystemsList.length;i++)
+                    if (  ( (newSystem["name"]!= null) && (newSystem["name"]!= "") && (historySystemsList[i]["name"]==newSystem["name"]) )
+                       || ( (newSystem["qrcode"]!= null) && (newSystem["qrcode"]!= "") && (historySystemsList[i]["qrcode"]==newSystem["qrcode"]) )  
+                       )
+                        already_present_index = i;
+
+                if ( already_present_index != -1 )
+                    historySystemsList.splice(already_present_index,1);
+                historySystemsList.unshift(newSystem);
+                localStorage.setItem("history_systems_list", JSON.stringify(historySystemsList));
+            }
+
+            function tryButtonsRequest() {                
+
+                document.getElementById("main_page").style.display = "none";
+                document.getElementById("main_page_msg_box").innerHTML = connecting_msg;
+                document.getElementById("main_page_msg_box").style.display = "block";
+
+                var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+                xmlhttp.open("GET", server_path + "questionbuttons");
+                xmlhttp.setRequestHeader("Content-Type", "application/json");
+                xmlhttp.timeout = post_timeout;
+                                
+                function checkIfJsonIsQuestionButtons(response) {
+                    if (response.length) {
+                        for (r in response) {
+                            if (!( response[r].hasOwnProperty("id") && response[r].hasOwnProperty("trust_level") && response[r].hasOwnProperty("button_text") ) ) {
+                                console.log("no matching");
+                                return false;
+                            }
+                            else {}
+                        }
+                        return true;
+                    }
+                    else {
+                        console.log("no length");
+                        return false;
+                    }
+                }
+
+                function ButtonsRequestErrorAndRefresh(elid) {
+                    document.getElementById("main_page").innerHTML=error_no_connection_msg;
+                            refresher = PullToRefresh.init({
+                                mainElement: '#main_page',
+                                onRefresh: function(){
+                                    tryButtonsRequest(); refresher.destroy();
+                                },
+                                distThreshold : 50, // Minimum distance required to trigger the refresh.
+                                distMax: 100,
+                                iconArrow: ' ', // The icon for both instructionsPullToRefresh and instructionsReleaseToRefresh
+                                instructionsPullToRefresh: "<h1><font color='#A6B3BB'>&circlearrowright;</font></h1>",
+                                instructionsReleaseToRefresh: "<h1><font color='#A6B3BB'>&circlearrowright;</font></h1>",
+                                // &#8635;&#x21BB;&circlearrowright;
+                                instructionsRefreshing: ' ',
+                                iconRefreshing: ' ',
+                                refreshTimeout: 200,
+                                distIgnore: 40,
+                                getStyles: function() { return refresher_styles; },
+                                triggerElement: '#main_page',
+                            });
+                }
+                
+                xmlhttp.ontimeout = function (oEvent) {
+                    console.log("POST timeout ", xmlhttp.statusText);
+                    ButtonsRequestErrorAndRefresh();
+                }
+
+                xmlhttp.onreadystatechange = function (oEvent) {
+                    if (xmlhttp.readyState === 0) {                    
+                        document.getElementById("main_page").innerHTML = connecting_msg;
+                        //document.getElementById("main_page").style.display = "block"
+                        // document.getElementById("screen").innerHTML = document.getElementById("popup_box").innerHTML;
+                    }
+                    if (xmlhttp.readyState === 4) {
+                        if (xmlhttp.status === 200) {
+                            console.log(xmlhttp.responseText);
+                            var response = JSON.parse(xmlhttp.responseText);
+                            if ( !checkIfJsonIsQuestionButtons(response) ) {
+                                console.log(response);
+                                ButtonsRequestErrorAndRefresh("main_page");
+                            }
+                            else {
+                                buttons_array = response;
+                                buildButtons();
+                                questionbuttons_got = true;
+                            }
+                        } else {
+                            // alert("GET error " + xmlhttp.readyState + " "+  xmlhttp.status+ " "+  xmlhttp.responseText + " " + JSON.stringify(xmlhttp) + server_path +  window.location.href);
+                            ButtonsRequestErrorAndRefresh("main_page");
+                        }
+                    }
+                }
+                // send request
+                // console.log(xmlhttp);
+                setTimeout(function() {xmlhttp.send();}, 1000);
+            }
+
+            function tryPopupRequest(element) {
+                
+                document.getElementById("popup_text").innerHTML = connecting_msg;
+                document.getElementById("popup_box").style.display = "block";
+
+                var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+                xmlhttp.open("POST", server_path + "question");
+                xmlhttp.setRequestHeader("Content-Type", "application/json");
+                var iot_system_question_ids = {system_id:currentIotSystem["id"], question_id:element};
+                xmlhttp.timeout = post_timeout;
+                console.log(JSON.stringify(iot_system_question_ids));
+                
+                xmlhttp.ontimeout = function (oEvent) {
+                    console.log("POST timeout ", xmlhttp.statusText);
+                    var popup_text = error_no_connection_msg;
+                    document.getElementById("popup_text").innerHTML= popup_text;
+                    // document.getElementById("screen").innerHTML = document.getElementById("popup_box").innerHTML;
+                    document.getElementById("popup_text").onclick = function(e) { tryPopupRequest(element); e.target.onclick = null}
+                }
+
+                xmlhttp.onreadystatechange = function (oEvent) {
+                    var popup_text = connecting_msg;
+                    if (xmlhttp.readyState === 0) {                    
+                        document.getElementById("popup_text").innerHTML = connecting_msg;
+                        document.getElementById("popup_box").style.display = "block"
+                        // document.getElementById("screen").innerHTML = document.getElementById("popup_box").innerHTML;
+                    }
+                    if (xmlhttp.readyState === 4) {
+                        if (xmlhttp.status === 200) {
+                            console.log(xmlhttp.responseText);
+                            popup_text = "";
+                            if ( isJson(xmlhttp.responseText) ) {
+                                var response = JSON.parse(xmlhttp.responseText);
+                                if ( response.hasOwnProperty("error_message") ) {
+                                    console.log("error_message");
+                                    popup_text = response["error_message"];
+                                    document.getElementById("popup_text").innerHTML= popup_text;
+                                    // document.getElementById("screen").innerHTML = document.getElementById("popup_box").innerHTML;
+                                }
+                                else if ( response.hasOwnProperty('results') ) {
+                                   popup_text = getAllResultLiterals(response);
+                                   document.getElementById("popup_text").innerHTML= popup_text;
+                                    // document.getElementById("screen").innerHTML = document.getElementById("popup_box").innerHTML;
+
+                                }
+                            } else {
+                                console.log(xmlhttp.responseText);
+                                popup_text = xmlhttp.responseText;
+                                document.getElementById("popup_text").innerHTML= popup_text;
+                            };
+                        } else {
+                            console.log("POST error", xmlhttp.statusText);
+                            popup_text = error_no_connection_msg;
+                            document.getElementById("popup_text").innerHTML= popup_text;
+                            // old version onclick
+                            // document.getElementById("popup_text").onclick = function(e) { tryPopupRequest(); e.target.onclick = null}
+                            // new version pulltorefresh
+                            refresher = PullToRefresh.init({
+                                mainElement: '#popup_text',
+                                onRefresh: function(){
+                                    tryPopupRequest(); refresher.destroy();
+                                },
+                                distThreshold : 50, // Minimum distance required to trigger the refresh.
+                                distMax: 100,
+                                iconArrow: ' ', // The icon for both instructionsPullToRefresh and instructionsReleaseToRefresh
+                                instructionsPullToRefresh: "<h1><font color='#A6B3BB' font-size='3em'>&circlearrowright;</font></h1>",
+                                instructionsReleaseToRefresh: "<h1><font color='#A6B3BB' font-size='3em'>&circlearrowright;</font></h1>",
+                                // &#8635;&#x21BB;&circlearrowright;
+                                instructionsRefreshing: ' ',
+                                iconRefreshing: ' ',
+                                refreshTimeout: 200,
+                                distIgnore: 40,
+                                getStyles: function() { return refresher_styles; },
+                                triggerElement: '#popup_text',
+                            });
+
+                        }
+                    }
+                }
+                // send request
+                setTimeout(function() {xmlhttp.send(JSON.stringify(iot_system_question_ids));}, 1000);
+            }
+
+            function getAllResultLiterals(response) {
+                var text = "";
+                var results = response["results"];
+                var bindings = results["bindings"];
+                for (var b in bindings) {
+                    for (var b1 in bindings[b]) {
+                        if (bindings[b][b1]["type"] == "literal") {
+                            text += bindings[b][b1]["value"] + "<br/>";
+                        }
+                    }
+                }
+                return text;
+            }
+
+            function tryLocatedSystemRequest() {
+                
+                $("#located_systems_table").children().remove();
+                document.getElementById("located_systems_info").innerHTML = connecting_msg;
+                document.getElementById("located_systems_info").style.display="block";                
+
+                var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+                xmlhttp.open("POST", server_path + "locatesystems");
+                xmlhttp.setRequestHeader("Content-Type", "application/json");
+                var locatesystems_parameters;
+                if ( locate_table_address_selected ) {
+                    locatesystems_parameters = {mode:1, postcode: locate_table_address_current_value, radius: radius };
+                } else {
+                    latitude = gps_latitude;
+                    longitude = gps_longitude;
+                    locatesystems_parameters = {mode:0, latitude: latitude, longitude: longitude, radius: radius };
+                }
+                
+                xmlhttp.timeout = post_timeout;
+                console.log(JSON.stringify(locatesystems_parameters));
+    
+                xmlhttp.ontimeout = function (oEvent) {
+                    console.log("POST timeout ", xmlhttp.statusText);
+                                       
+                }
+
+                xmlhttp.onreadystatechange = function (oEvent) {
+                    if (xmlhttp.readyState === 0) {                    
+                        document.getElementById("located_systems_info").innerHTML = connecting_msg;
+                        document.getElementById("located_systems_info").style.display="block";
+                        // document.getElementById("screen").innerHTML = document.getElementById("popup_box").innerHTML;
+                    }
+                    if (xmlhttp.readyState === 4) {
+                        if (xmlhttp.status === 200) {
+                            console.log(xmlhttp.responseText);
+                            popup_text = "";
+                            var response = JSON.parse(xmlhttp.responseText);
+                            if ( response.hasOwnProperty("error_message") ) {
+                                popup_text =
+                                document.getElementById("located_systems_info").innerHTML = response["error_message"];
+                                // document.getElementById("screen").innerHTML = document.getElementById("popup_box").innerHTML;
+                            }
+                            else { // check format !!!
+                                locatedSystemsList = response;
+                                showLocatedSystemsResponse();
+                                document.getElementById("located_systems_info").style.display= "none";
+                                // document.getElementById("screen").innerHTML = document.getElementById("popup_box").innerHTML;
+
+                            }
+                            
+                        } else {
+                            console.log("/locatesystems POST error", xmlhttp.statusText);
+                            popup_text = error_no_connection_msg;
+                            document.getElementById("located_systems_info").innerHTML= popup_text;
+                            // old version onclick
+                            // document.getElementById("popup_text").onclick = function(e) { tryPopupRequest(); e.target.onclick = null}
+                            // new version pulltorefresh
+                            refresher = PullToRefresh.init({
+                                mainElement: '#located_systems_info',
+                                onRefresh: function(){
+                                    tryLocatedSystemRequest(); refresher.destroy();
+                                },
+                                distThreshold : 50, // Minimum distance required to trigger the refresh.
+                                distMax: 100,
+                                iconArrow: ' ', // The icon for both instructionsPullToRefresh and instructionsReleaseToRefresh
+                                instructionsPullToRefresh: "<h1><font color='#A6B3BB'>&circlearrowright;</font></h1>",
+                                instructionsReleaseToRefresh: "<h1><font color='#A6B3BB'>&circlearrowright;</font></h1>",
+                                // &#8635;&#x21BB;&circlearrowright;
+                                instructionsRefreshing: ' ',
+                                iconRefreshing: ' ',
+                                refreshTimeout: 200,
+                                distIgnore: 40,
+                                getStyles: function() { return refresher_styles; },
+                                triggerElement: '#located_systems_info',
+                            });
+
+                        }
+                    }
+                }
+                // send request
+                setTimeout(function() {xmlhttp.send(JSON.stringify(locatesystems_parameters));}, 1000);
+            }
+
+            function tryScannedSystemDetailsRequest() {
+                
+                $("#scanned_system_table").children().remove();
+                document.getElementById("scanned_system_info").innerHTML = connecting_msg;
+                document.getElementById("scanned_system_info").style.display="block";   
+                document.getElementById("scanned_system_msg_box").style.display = "none";
+
+                var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+                xmlhttp.open("POST", server_path + "systemdetails");
+                xmlhttp.setRequestHeader("Content-Type", "application/json");
+                var systemdetails_parameters = {qrcode: currentScannedSystem["qrcode"]};
+                                
+                xmlhttp.timeout = post_timeout;
+                console.log((systemdetails_parameters));
+    
+                xmlhttp.ontimeout = function (oEvent) {
+                    console.log("/systemdetails POST timeout ", xmlhttp.statusText);
+                                       
+                }
+
+                xmlhttp.onreadystatechange = function (oEvent) {
+                    if (xmlhttp.readyState === 0) {                    
+                        document.getElementById("scanned_system_info").innerHTML = connecting_msg;
+                        document.getElementById("scanned_system_info").style.display="block";   
+                        document.getElementById("scanned_system_msg_box").style.display = "none";
+                        // document.getElementById("screen").innerHTML = document.getElementById("popup_box").innerHTML;
+                    }
+                    if (xmlhttp.readyState === 4) {
+                        if (xmlhttp.status === 200) {
+                            console.log(xmlhttp.responseText);
+                            scanned_system_currently_selected = [];
+                            scanned_system_currently_selected.push(true);
+                            scannedSystemList = [];
+                            if (xmlhttp.responseText != "") {
+                                var response = JSON.parse(xmlhttp.responseText);
+                                if ( response.hasOwnProperty("error_message") ) {
+                                    document.getElementById("scanned_system_info").innerHTML = response["error_message"];
+                                    // document.getElementById("screen").innerHTML = document.getElementById("popup_box").innerHTML;
+                                }
+                                else { // check format !!!
+                                    if ( response.hasOwnProperty("qrcode") ) {
+                                        scannedSystemList.push(response);
+                                        showScannedSystemsDetailsResponse();
+                                        currentIotSystem = scannedSystemList[0];
+                                        document.getElementById("scanned_system_info").style.display= "none";                                    
+                                    } else  {
+                                        var newUnknownSystem = {    name: "Unknown IoT System", 
+                                                                    qrcode: currentScannedSystem["qrcode"]};
+                                        scannedSystemList.push(newUnknownSystem);
+                                        showScannedSystemsDetailsResponse();
+                                        currentIotSystem = scannedSystemList[0];
+                                        document.getElementById("scanned_system_msg_box").innerHTML = "The scanned QR code does not belong to a TrustLens IoT System";
+                                        document.getElementById("scanned_system_msg_box").style.display = "block";
+                                        document.getElementById("scanned_system_info").style.display = "none";
+                                    }
+                                }
+                            } else { 
+                                var newUnknownSystem = {    name: "Unknown IoT System", 
+                                                            qrcode: currentScannedSystem["qrcode"]};
+                                scannedSystemList.push(newUnknownSystem);
+                                showScannedSystemsDetailsResponse();
+                                currentIotSystem = scannedSystemList[0];
+                                document.getElementById("scanned_system_msg_box").innerHTML = "The scanned QR code does not belong to a TrustLens IoT System";
+                                document.getElementById("scanned_system_msg_box").style.display = "block";
+                                document.getElementById("scanned_system_info").style.display = "none";
+                            }
+
+                        } else {
+                            console.log("/systemdetails POST error", xmlhttp.statusText);
+                            popup_text = error_no_connection_msg;
+                            document.getElementById("scanned_system_info").innerHTML= popup_text;
+                            // old version onclick
+                            // document.getElementById("popup_text").onclick = function(e) { tryPopupRequest(); e.target.onclick = null}
+                            // new version pulltorefresh
+                            refresher = PullToRefresh.init({
+                                mainElement: '#scanned_system_info',
+                                onRefresh: function(){
+                                    tryScannedSystemDetailsRequest(); refresher.destroy();
+                                },
+                                distThreshold : 50, // Minimum distance required to trigger the refresh.
+                                distMax: 100,
+                                iconArrow: ' ', // The icon for both instructionsPullToRefresh and instructionsReleaseToRefresh
+                                instructionsPullToRefresh: "<h1><font color='#A6B3BB'>&circlearrowright;</font></h1>",
+                                instructionsReleaseToRefresh: "<h1><font color='#A6B3BB'>&circlearrowright;</font></h1>",
+                                // &#8635;&#x21BB;&circlearrowright;
+                                instructionsRefreshing: ' ',
+                                iconRefreshing: ' ',
+                                refreshTimeout: 200,
+                                distIgnore: 40,
+                                getStyles: function() { return refresher_styles; },
+                                triggerElement: '#scanned_system_info',
+                            });
+
+                        }
+                    }
+                }
+                // send request
+                setTimeout(function() {xmlhttp.send(JSON.stringify(systemdetails_parameters));}, 1000);
+            }
+
+            function locate_table_switch_selection(a) {
+                if (a=="gps") {
+                    locate_table_gps_selected = !locate_table_gps_selected;
+                    if (locate_table_gps_selected && locate_table_address_selected)
+                        locate_table_address_selected = false;
+                }
+                else if (a=="address") {
+                    locate_table_address_selected = !locate_table_address_selected;
+                    if (locate_table_address_selected && locate_table_gps_selected)
+                        locate_table_gps_selected = false;
+                }
+                if ( locate_table_gps_selected ) {
+                    document.getElementById("locate_table_gps_info").style.display ="";
+                    document.getElementById("locate_table_gps").style.background = custom_grey_50;
+                    document.getElementById("locate_table_gps").style.fontWeight="bold";
+                    document.getElementById("locate_table_address_info").style.display ="none";
+                    document.getElementById("locate_table_address").style.background = custom_grey_12;
+                    document.getElementById("locate_table_address").style.fontWeight="normal";
+                    doGeolocation();
+                } 
+                else if ( locate_table_address_selected ) {
+                    document.getElementById("locate_table_address_info").style.display ="";
+                    document.getElementById("locate_table_address").style.background = custom_grey_50;
+                    document.getElementById("locate_table_address").style.fontWeight="bold";
+                    document.getElementById("locate_table_gps_info").style.display ="none";
+                    document.getElementById("locate_table_gps").style.background = custom_grey_12;
+                    document.getElementById("locate_table_gps").style.fontWeight="normal";
+                } else {
+                    document.getElementById("locate_table_address_info").style.display ="none";
+                    document.getElementById("locate_table_address").style.background = custom_grey_12;
+                    document.getElementById("locate_table_address").style.fontWeight="normal";
+                    document.getElementById("locate_table_gps_info").style.display ="none";
+                    document.getElementById("locate_table_gps").style.background = custom_grey_12;
+                    document.getElementById("locate_table_gps").style.fontWeight="normal";
+                }
+            }
+
+            
+
+            function table_switch_selection(table_id, i, currently_selected) {
+                currently_selected[i] = !currently_selected[i];
+                if (currently_selected[i] == true ) {
+                    for (var j=0;j<currently_selected.length;j++) {
+                        if (j != i)
+                            currently_selected[j]=false;
+                    }
+                }
+                var table = document.getElementById(table_id);
+                var rows = table.children;
+                for(j = 0; j < rows.length; j++){  
+                    rowsj = rows[j].children[0].children[0].children;
+                    console.log(rowsj);
+                    console.log(rowsj.length);
+                    if ( currently_selected[j] ) {                        
+                        for (l=0; l<rowsj.length; l++) {
+                            rowsj[l].style.background = custom_grey_50;
+                        }
+                        rowsj[0].style.fontWeight="bold";
+                        for (l=1; l<rowsj.length; l++) {
+                            rowsj[l].style.display = "";
+                        }
+                    }
+                    else {
+                        for (l=0; l<rowsj.length; l++) {
+                            rowsj[l].style.background = custom_grey_12;
+                        }
+                        rowsj[0].style.fontWeight="normal";
+                        for (l=1; l<rowsj.length; l++) {
+                            rowsj[l].style.display = "none";
+                        }
+                    }
+                }
+            }
+
+            function flipDisplay(e) {
+                if (e.style.display=="none")
+                    e.style.display="block";
+                else
+                    e.style.display="none";
+            }
+
+
+            function geolocationOnSuccess(position) {
+                /*
+                alert('Latitude: '          + position.coords.latitude          + '\n' +
+                      'Longitude: '         + position.coords.longitude         + '\n' +
+                      'Altitude: '          + position.coords.altitude          + '\n' +
+                      'Accuracy: '          + position.coords.accuracy          + '\n' +
+                      'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+                      'Heading: '           + position.coords.heading           + '\n' +
+                      'Speed: '             + position.coords.speed             + '\n' +
+                      'Timestamp: '         + position.timestamp                + '\n');
+                */
+                gps_latitude =  position.coords.latitude;
+                gps_longitude = position.coords.longitude;
+                document.getElementById("locate_table_gps_current_value").innerHTML =  gps_latitude + " " + gps_longitude;
+            };
+
+            function geolocationOnError(error) {
+                /*
+                alert('code: '    + error.code    + '\n' +
+                      'message: ' + error.message + '\n');
+                */
+                gps_latitude = null;
+                gpslongitude = null;
+                document.getElementById("locate_table_gps_current_value").innerHTML =  "Not available";
+
+
+            }
+
+            function doGeolocation() {
+                var geolocationOptions = { maximumAge: 3000, timeout: 5000, enableHighAccuracy: true };
+                navigator.geolocation.getCurrentPosition(geolocationOnSuccess, geolocationOnError, geolocationOptions);
+            }
+
+            function submitLocate() {
+                if (!locate_table_gps_selected && !locate_table_address_selected) {
+                    navigator.notification.alert("Please select GPS or address / post code", null, "TrustLens", "OK");
+                } 
+                else if (locate_table_address_selected) {
+                    locate_table_address_current_value = document.getElementById("locate_table_address_current_value").value;
+
+                    if ( locate_table_address_current_value != null && locate_table_address_current_value!= "" ) {
+                        // translate address or post code into location
+                        showScreen("LocatedSystems");
+                    }
+                    else {
+                         navigator.notification.alert("Please type address or post code", null, "TrustLens", "OK");
+                    }
+                }
+                else if (locate_table_gps_selected) {
+                    if ( gps_latitude != null && gps_longitude != null ) {
+                        showScreen("LocatedSystems");
+                    }                  
+                    else {
+                        navigator.notification.alert("Your current location is not available", null, "TrustLens", "OK");
+                    }
+                }
+
+
+            }
+
+            function formatIotSystemField(s){
+                if ( s=="qrcode")
+                    return "QR code";
+                else 
+                    return firstToUpperCase(s);
+            }
+
+            function firstToUpperCase(s) {
+                return s.charAt(0).toUpperCase() + s.substring(1);
+            }
+
+            function isJson(str) {
+                try {
+                    JSON.parse(str);
+                } catch (e) {
+                    return false;
+                }
+                return true;
+            }
+
+    </script>
+
+    </head>
+
+    <body   onload="loadApp()"  >
+        <!-- style="background-color:#ECEFF2" -->
+
+        <div hidden>
+            <h3>Scenario Reminder</h3>
+            <p style="border: 5px solid black;">Please imagine yourself in the following scenario:
+
+                A bus stop you use frequently has been instrumented with technologies that will turn on lights when a person is present. It does this by periodically turning on an audio sensor to determine if a conversation is taking place and by searching for Bluetooth- or WiFi-enabled devices such as smartphones. If a person or device is sensed, the light will turn on until such time as they leave the vicinity.
+
+                You are interested in finding out more information about the system, so you use an online portal which you have accessed via a website or using a mobile app. 
+            </p></div>
+
+        <div id="screen" class="screen_box" >
+        </div>
+
+
+        <div hidden>
+            <h3>Task</h3>
+            <p style="border: 5px solid black;">
+                Click the buttons on the phone screen to learn more about the IoT system. 
+
+                <br>
+                TO DO JP will add the drop down menu with questions and the continue button...
+            </p>
+        </div>
+
+        <div id="profile_settings_box" class="hidden_box">
+            <div id="profile_settings" class="prof_settings">
+                <h3>Profile Settings</h3>
+                <h5>To allow the app to provide a more tailored...</h5>
+                <br/>               
+                <h4>How much do you trust Government?</h4>
+                <h5>
+                <table style="width:100%">
+                    <tr>
+                        <td style="width:20%">Strongly<br/>Disagree</td>
+                        <td style="width:20%">Disagree</td>
+                        <td style="width:20%">Neutral</td>
+                        <td style="width:20%">Agree</td>
+                        <td style="width:20%">Strongly<br/>Agree</td>                      
+                    </tr> 
+                    <tr>
+                        <td><input type="radio" value="1" name="govt_trust" /></td>
+                        <td><input type="radio" value="2" name="govt_trust" /></td>
+                        <td><input type="radio" value="3" name="govt_trust" /></td>
+                        <td><input type="radio" value="4" name="govt_trust" /></td>
+                        <td><input type="radio" value="5" name="govt_trust" /></td>
+                    </tr> 
+                </table>
+                </h5>
+                <h4>How much do you trust people?</h4>
+                <h5>
+                <table style="width:100%">
+                    <tr>
+                        <td style="width:20%">Strongly<br/>Disagree</td>
+                        <td style="width:20%">Disagree</td>
+                        <td style="width:20%">Neutral</td>
+                        <td style="width:20%">Agree</td>
+                        <td style="width:20%">Strongly<br/>Agree</td>                      
+                    </tr> 
+                    <tr>
+                        <td><input type="radio" value="1" name="people_trust" /></td>
+                        <td><input type="radio" value="2" name="people_trust" /></td>
+                        <td><input type="radio" value="3" name="people_trust" /></td>
+                        <td><input type="radio" value="4" name="people_trust" /></td>
+                        <td><input type="radio" value="5" name="people_trust" /></td>
+                        
+                    </tr> 
+                </table> 
+                </h5>
+                <h5></h5><br/> 
+                <button class=submit_button onclick="submitGovtPeopleTrust()" >Submit</button>
+                <br><br>
+            </div>
+        </div>  
+
+        <div id="main_page_box" class="hidden_box" >
+            <div id="main_current_iot_system" style="text-align: center; word-break: break-word">
+                <h3>Current IoT system</h3>
+                <h4 id="main_current_iot_system_info"></h4>
+            </div>
+            <p id="main_page_msg_box" style="text-align: left">
+            </p>
+            <div id="main_page" class="home">
+                <button class="button grid-item" id="data_collection_button" onclick="showPopup(data_collection)" >Data Collection<br></button> 
+                <button class="button grid-item" id="identifiable_button" onclick="showPopup(identifiable)" >Is collected data identifiable?</button>
+                <button class="button" id="storage_button" onclick="showPopup(storage)" >Duration of Storage</button>
+                <button class="button" id="purpose_button" onclick="showPopup(purpose)" >Purpose of the collected data</button>
+                <button class="button" id="sharing_button" onclick="showPopup(sharing)" >Data Sharing</button>
+                <button class="button" id="access_button" onclick="showPopup(access)" >Data Access</button>
+                <button class="button" id="contact_button" onclick="showPopup(contact)" >Contact Information </button>
+                <button class="button" id="privacy_button" onclick="showPopup(privacy)" >Privacy Policy </button>
+                <button class="button" id="protected_privacy_button" onclick="showPopup(protected_privacy)" >How your Privacy is Protected</button>
+                <button class="button" id="risk_button" onclick="showPopup(risk)" >Risk Indicator</button>
+            </div>
+            <!-- 
+            <hr/>
+            <div class="home">
+                <button class="settings_button " onclick="showProfileSettings()"> <i class="fa fa-gear" ></i> Settings</button>
+                   <strong>&#9881;</strong>    
+            </div>
+            -->
+        </div>
+
+        <div id="popup_box" class="hidden_box">
+            <div id="popup">
+                <div id="popup_content" class="popup" style="display: inline">
+                    <div class="home">
+                        <button class="back_button" onclick="showPreviousScreen()" >&ShortLeftArrow; Back </button>
+                        <!--← &#8592;
+&#x2190; &ShortLeftArrow; &#x21e6; &#9664;⇠ &#x21e0; ➤ &#x27a4; ⇦ &#x21e6; ⇨ &#x21e8; « &#xab; » &#xbb; ► &#x25ba; ◀ &#x25c0; -->
+                    </div>
+                    <hr/>
+
+                    <div class="popup_p" >
+                        <p id="popup_text"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="home_box" class="hidden_box">
+            <div id="home_new_iot_system" style="text-align: center">
+                <h3>Detect a new IoT system</h3>
+                <button class="home_button" onclick="showScreen('Scan')">Scan</button>
+                <br/>
+                <button class="home_button" onclick="showScreen('Locate')">Locate</button>
+                <br/>
+                <br/>
+            </div>
+            <div id="home_current_iot_system" style="text-align: center;  width:100%">
+                <h3 hidden>Current IoT system</h3>
+                <h4 id="home_current_iot_system_info" hidden></h4>
+                <button class="home_button" onclick="showScreen('Main')" hidden >Analyse</button>
+                <br hidden/>
+                <h3>Detected IoT systems</h3>
+                <button class="home_button" onclick="showScreen('History')">History</button>
+                <br/>                
+                <br/>
+            </div>
+        </div>
+
+        <div id="locate_box" class="hidden_box" >
+             <div id="locate" style="text-align:center;"  >
+                <h3>Locate IoT systems</h3>
+                <table style="width:100%" id="locate_table" class="locate_table">
+                    <tr><td>
+                        <table style="width:100%" id="locate_table_gps" class="locate_table_unselected">
+                            <tr onclick="locate_table_switch_selection('gps')"><td ><p style="font-size: 1em;">By GPS</p></td></tr>
+                            <tr id="locate_table_gps_info" style="display:none"><td>
+                                <table id="locate_table_gps_current" class="plain_table">
+                                    <tr><td><span class="f4">Current location</span></td></tr>
+                                    <tr><td><span class="f4" id="locate_table_gps_current_value">...</span></td></tr>
+                                </table>
+                            </td></tr>
+                        </table>
+                    </td></tr>
+                    <tr><td>
+                        <table style="width:100%" id="locate_table_address" class="locate_table_unselected"  >
+                            <tr onclick="locate_table_switch_selection('address')"><td ><p style="font-size: 1em;">By address / post code</p></td></tr>
+                            <tr id="locate_table_address_info" style="display:none;width:100%"><td>
+                                <table id="locate_table_address_current" class="plain_table" style="width:100%" >
+                                    <tr><td><span class="f4">Insert address or post code</span></td></tr>
+                                    <tr style="width:100%" ><td style="width:100%; padding-right:4px" ><input type="text" class="f4" name="locate_table_address_current_value" id="locate_table_address_current_value" style="width:100%; outline:0; " /></td></tr>
+                                </table>
+                            </td></tr>
+                        </table>
+                    </td></tr>
+                    <tr style="background: white;"><td style="width:100%; padding-right:4px">
+                        <div style="text-align: center; margin: 10px; background: white;">                       
+                            <div style="text-align: left">
+                                <span class="f4"  style="text-align:left">Radius: <span id="radius_slider_value"></span>
+                            </div>
+                        </div>
+                        <div id="radius_div" class="slidecontainer" style="text-align: center">
+                                    <input type="range" min="10" max="1000" step="10" value="50" class="slider" id="radius_slider">
+                        </div>
+                      
+                    </tr></td>
+                </table>
+                <br/>
+                <br/>
+                <button class=submit_button onclick="submitLocate()" >Locate</button>
+                <br><br>
+            </div>
+        </div>
+        <div id="located_systems_box" class="hidden_box">
+             <div id="located_systems" style="text-align: center;  width:100%">
+                <h3>Located IoT systems</h3>
+                <p id="located_systems_info" style="display:'block';text-align:left" />
+                <div>
+                    <table id="located_systems_table_old" class="located_systems_table" hidden>
+                    </table>
+                </div>
+                <div>
+                    <table id="located_systems_table" class="locate_table" style="width:100%">
+                    </table>
+                    <br/>
+                    <button id="located_systems_analyse" class=submit_button onclick="analyseLocatedSystem()">Analyse</button>
+                    <br><br>
+                </div>
+            </div>
+        </div>
+        
+        <div id="history_systems_box" class="hidden_box">
+             <div id="history_systems" style="text-align: center;  width:100%">
+                <h3>Previously detected IoT systems</h3>
+                <p id="history_systems_info" style="display:'block';text-align:left" />
+                <div>
+                    <table id="history_systems_table" class="locate_table" style="width:100%">
+                    </table>
+                    <br/>
+                    <button id="history_systems_analyse" class=submit_button onclick="analyseHistorySystem()">Analyse</button>
+                    <br><br>
+                </div>
+            </div>
+        </div>
+
+        <div id="scanned_system_box" class="hidden_box">
+             <div id="scanned_system" style="text-align: center;  width:100%">
+                <h3>Scanned IoT System</h3>
+                <p id="scanned_system_info" style="display:none;text-align:left" />
+                <div>
+                    <table id="scanned_system_table" class="locate_table" style="width:100%">
+                    </table>
+                    <br/>
+                    <p id="scanned_system_msg_box" style="display:block; text-align:left" />
+                    <button id="scanned_system_analyse" class=submit_button onclick="analyseScannedSystem()" style="display:block">Analyse</button>
+                    <br><br>
+                </div>
+            </div>
+        </div>        
+
+        <div id="menu_for_non_android" hidden>
+            <hr/>
+            <div style="column-count:7; column-gap:8px; height:50px">
+                <button class="settings_button " onclick="showPreviousScreen()">&ShortLeftArrow;  Back</button>
+                <button class="settings_button " onclick="showScreen('Home')">Home</button>
+                <button class="settings_button " onclick="showScreen('Scan')">Scan</button>
+                <button class="settings_button " onclick="showScreen('LocatedSystems')">Locate</button>
+                <button class="settings_button " onclick="showScreen('History')">History</button>
+                <button class="settings_button " onclick="showScreen('Main')">Analyse</button>
+                <button class="settings_button " onclick="showScreen('Settings')">Settings</button>   
+            </div>
+       </div>
+      <a href="" onclick="cordova.InAppBrowser.open('http://apache.org', '_system', 'location=yes');" hidden>Link_external</a>
+    </body>
+</html>

@@ -1,0 +1,34 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "uk.ac.abdn.trustlens.scenario1"
+    },
+    "cordova-plugin-optionsmenu": {
+      "PACKAGE_NAME": "uk.ac.abdn.trustlens.scenario1"
+    },
+    "phonegap-plugin-barcodescanner": {
+      "ANDROID_SUPPORT_V4_VERSION": "27.+",
+      "PACKAGE_NAME": "uk.ac.abdn.trustlens.scenario1"
+    },
+    "cordova-plugin-appminimize": {
+      "PACKAGE_NAME": "uk.ac.abdn.trustlens.scenario1"
+    },
+    "cordova-plugin-dialogs": {
+      "PACKAGE_NAME": "uk.ac.abdn.trustlens.scenario1"
+    },
+    "cordova-plugin-geolocation": {
+      "PACKAGE_NAME": "uk.ac.abdn.trustlens.scenario1"
+    },
+    "cordova-plugin-inappbrowser": {
+      "PACKAGE_NAME": "uk.ac.abdn.trustlens.scenario1"
+    }
+  },
+  "dependent_plugins": {}
+}

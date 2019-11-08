@@ -1,0 +1,55 @@
+{
+  "_from": "cordova-plugin-optionsmenu",
+  "_id": "cordova-plugin-optionsmenu@1.0.23",
+  "_inBundle": false,
+  "_integrity": "sha1-jq2XZz7FOkLcNQeLCiWWZKjltsY=",
+  "_location": "/cordova-plugin-optionsmenu",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "cordova-plugin-optionsmenu",
+    "name": "cordova-plugin-optionsmenu",
+    "escapedName": "cordova-plugin-optionsmenu",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-optionsmenu/-/cordova-plugin-optionsmenu-1.0.23.tgz",
+  "_shasum": "8ead97673ec53a42dc35078b0a259664a8e5b6c6",
+  "_spec": "cordova-plugin-optionsmenu",
+  "_where": "C:\\cordova\\scenario1",
+  "author": {
+    "name": "cranberrygame"
+  },
+  "bugs": {
+    "url": "https://github.com/cranberrygame/cordova-plugin-optionsmenu/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-optionsmenu",
+    "platforms": [
+      "android"
+    ]
+  },
+  "deprecated": false,
+  "description": "OptionsMenu",
+  "homepage": "https://github.com/cranberrygame/cordova-plugin-optionsmenu#readme",
+  "keywords": [
+    "cordova",
+    "optionsmenu",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "license": "MIT",
+  "name": "cordova-plugin-optionsmenu",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cranberrygame/cordova-plugin-optionsmenu.git"
+  },
+  "version": "1.0.23"
+}
