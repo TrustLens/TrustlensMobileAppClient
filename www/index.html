@@ -2,9 +2,13 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
-        <title>TrustLens app</title>
-        <style>
+        <meta http-equiv="Content-Security-Policy" content="default-src *; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'; img-src * data: 'unsafe-inline'; connect-src * 'unsafe-inline'; frame-src *;">
+<meta http-equiv="Content-Security-Policy" content="default-src * gap://ready file:; style-src 'self' 'unsafe-inline' *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *">  
+          <title>TrustLens app</title>
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+       <style>
             /* disable text selection */
             /** {
                 -webkit-user-select: none;
@@ -356,8 +360,8 @@
             const custom_grey_12 = "#d6dbdf";
             const grey = "#808080";
 
-            const server_path_trustlens = "http://trustlens.abdn.ac.uk/tomcat/demo-0.0.1-SNAPSHOT/"; 
-            const server_path_localhost = "http://localhost:8080/demo/";
+            const server_path_trustlens = "http://trustlens.abdn.ac.uk/tomcat/TrustlensMobileAppServer-0.0.1-SNAPSHOT/"; 
+            const server_path_localhost = "http://localhost:8080/";
             const server_path_from_emu = "http://10.0.2.2:8080/demo/"
             var server_path = server_path_trustlens;
 
@@ -712,7 +716,11 @@
                     table2.appendChild(tr21);
 
                     for (var f in fields) {
-                        if ( (s[fields[f]] != "") && (fields[f]!="name") ){
+                    
+                    //comment from Milan : this method is extremely difficult to understand 
+                    //I am expanding the next if statment as I only need to hide some table fields and this seems to be the quickest option
+                        console.log(fields[f]);
+                        if ( (s[fields[f]] != "") && (fields[f]!="name") && (fields[f]!="cleanUri") && (fields[f]!="uri") && (fields[f]!="id")&& (fields[f]!="parentSystemURI") ){
                             var tr22 = document.createElement('tr');
                             tr22.style.display = "none";
                             var td22 = document.createElement('td');
