@@ -449,15 +449,15 @@
 
             var locate_table_address_current_value;
 
-            var buttons_array = [   {id: "data_collection",     button_text: "Data collection",                     trust_level: 2,     mocked_text: data_collection},
-                                    {id: "identifiable",        button_text: "Is collected data identifiable?",     trust_level: 2,     mocked_text: identifiable},
-                                    {id: "storage",             button_text: "Duration of Storage",                 trust_level: 3,     mocked_text: storage},
-                                    {id: "purpose",             button_text: "Purpose of collected data",           trust_level: 1,     mocked_text: purpose},
+            var buttons_array = [   {id: "data_collection",     button_text: "Data Collection",                     trust_level: 2,     mocked_text: data_collection},
+                                    {id: "identifiable",        button_text: "Is Collected Data Identifiable?",     trust_level: 2,     mocked_text: identifiable},
+                                    {id: "storage",             button_text: "Duration Of Storage",                 trust_level: 3,     mocked_text: storage},
+                                    {id: "purpose",             button_text: "Purpose Of Collected Data",           trust_level: 1,     mocked_text: purpose},
                                     {id: "sharing",             button_text: "Data Sharing",                        trust_level: 1,     mocked_text: sharing},
                                     {id: "access",              button_text: "Data Access",                         trust_level: 3,     mocked_text: access},
                                     {id: "contact",             button_text: "Contact Information",                 trust_level: 3,     mocked_text: contact},
                                     {id: "privacy",             button_text: "Privacy Policy",                      trust_level: 2,     mocked_text: privacy},
-                                    {id: "protected_privacy",   button_text: "How your Privacy is Protected",       trust_level: 1,     mocked_text: protected_privacy},
+                                    {id: "protected_privacy",   button_text: "How Your Privacy Is Protected",       trust_level: 1,     mocked_text: protected_privacy},
                                     {id: "risk",                button_text: "Risk Indicator",                      trust_level: 3,     mocked_text: risk},
                                     
             ];
@@ -492,7 +492,7 @@
                             default:
                                 server_path = decodeURIComponent(parameters_in_url.get("server"));
                         }
-                 alert(server_path);
+           //      alert(server_path);
 
                 // radius slider value
                 var slider = document.getElementById("radius_slider");
@@ -1056,19 +1056,25 @@
                             // go back to previous screen
                         } else if (result.format == "QR_CODE") {
                                 // delete alert
-                                navigator.notification.alert("QR code detected\n" +
-                                                            result.text + "\n", 
-                                                            null, "TrustLens", "OK")
+                              //  navigator.notification.alert("QR code detected\n" +
+                                //                            result.text + "\n", 
+                                  //                          null, "TrustLens", "OK")
                                 //alert("QR code detected\n" +                                   "Result: " + result.text + "\n"); 
                                 localStorage.setItem("iot_system_already_set", "1");
                                 localStorage.setItem("current_iot_system", result.text);
-                                var newSystem = {   name: result.text.substring(0,10), 
-                                                    qrcode: result.text};
-                                // addToHistorySystemsList(newSystem);
-                                // showScreen("Main");
-                                // currentIotSystem = newSystem;
-                                currentScannedSystem = newSystem;
+                               
+                                
+                               
+                                var newSystem = {   name: result.text.split("#")[1].replace(/([a-z0-9])([A-Z])/g, '$1 $2'), 
+                                                    id: result.text};
+                                 addToHistorySystemsList(newSystem);
+                                 currentIotSystem = newSystem;
+                                 showScreen("Main");
+                                
+                            //quick hack to skip to the buttons as server side only implemented for fixed list of ssytem
+                              /*  currentScannedSystem = newSystem;
                                 showScreen("ScannedSystem");
+                                */
                             } else {
                                 // alert("This is not a QR code");
                                 navigator.notification.alert("This is not a QR code", null, "TrustLens", "OK");
@@ -1412,6 +1418,7 @@
                                     // document.getElementById("screen").innerHTML = document.getElementById("popup_box").innerHTML;
                                 }
                                 else { // check format !!!
+                              //  alert(response);
                                     if ( response.hasOwnProperty("qrcode") ) {
                                         scannedSystemList.push(response);
                                         showScannedSystemsDetailsResponse();
@@ -1667,9 +1674,28 @@
         <div id="profile_settings_box" class="hidden_box">
             <div id="profile_settings" class="prof_settings">
                 <h3>Profile Settings</h3>
-                <h5>To allow the app to provide a more tailored...</h5>
-                <br/>               
-                <h4>How much do you trust Government?</h4>
+                <h5>Please indicate how much you agree or disagree with the following statements </h5>
+                <br/> 
+                 <h4>I believe that private organisations can be trusted</h4>
+                <h5>
+                <table style="width:100%">
+                    <tr>
+                        <td style="width:20%">Strongly<br/>Disagree</td>
+                        <td style="width:20%">Disagree</td>
+                        <td style="width:20%">Neutral</td>
+                        <td style="width:20%">Agree</td>
+                        <td style="width:20%">Strongly<br/>Agree</td>                      
+                    </tr> 
+                    <tr>
+                        <td><input type="radio" value="1" name="private_trust" /></td>
+                        <td><input type="radio" value="2" name="private_trust" /></td>
+                        <td><input type="radio" value="3" name="private_trust" /></td>
+                        <td><input type="radio" value="4" name="private_trust" /></td>
+                        <td><input type="radio" value="5" name="private_trust" /></td>
+                    </tr> 
+                </table>
+                </h5>              
+                <h4>I believe that the government can be trusted</h4>
                 <h5>
                 <table style="width:100%">
                     <tr>
@@ -1688,7 +1714,7 @@
                     </tr> 
                 </table>
                 </h5>
-                <h4>How much do you trust people?</h4>
+                <h4>I believe that people can be trusted</h4>
                 <h5>
                 <table style="width:100%">
                     <tr>
@@ -1723,14 +1749,14 @@
             </p>
             <div id="main_page" class="home">
                 <button class="button grid-item" id="data_collection_button" onclick="showPopup(data_collection)" >Data Collection<br></button> 
-                <button class="button grid-item" id="identifiable_button" onclick="showPopup(identifiable)" >Is collected data identifiable?</button>
-                <button class="button" id="storage_button" onclick="showPopup(storage)" >Duration of Storage</button>
-                <button class="button" id="purpose_button" onclick="showPopup(purpose)" >Purpose of the collected data</button>
+                <button class="button grid-item" id="identifiable_button" onclick="showPopup(identifiable)" >Is Collected Data Identifiable?</button>
+                <button class="button" id="storage_button" onclick="showPopup(storage)" >Duration Of Storage</button>
+                <button class="button" id="purpose_button" onclick="showPopup(purpose)" >Purpose Of The Collected Data</button>
                 <button class="button" id="sharing_button" onclick="showPopup(sharing)" >Data Sharing</button>
                 <button class="button" id="access_button" onclick="showPopup(access)" >Data Access</button>
                 <button class="button" id="contact_button" onclick="showPopup(contact)" >Contact Information </button>
                 <button class="button" id="privacy_button" onclick="showPopup(privacy)" >Privacy Policy </button>
-                <button class="button" id="protected_privacy_button" onclick="showPopup(protected_privacy)" >How your Privacy is Protected</button>
+                <button class="button" id="protected_privacy_button" onclick="showPopup(protected_privacy)" >How Your Privacy Is Protected</button>
                 <button class="button" id="risk_button" onclick="showPopup(risk)" >Risk Indicator</button>
             </div>
             <!-- 
@@ -1771,7 +1797,7 @@
             <div id="home_current_iot_system" style="text-align: center;  width:100%">
                 <h3 hidden>Current IoT system</h3>
                 <h4 id="home_current_iot_system_info" hidden></h4>
-                <button class="home_button" onclick="showScreen('Main')" hidden >Analyse</button>
+                <button class="home_button" onclick="showScreen('Main')" hidden >More Info</button>
                 <br hidden/>
                 <h3>Detected IoT systems</h3>
                 <button class="home_button" onclick="showScreen('History')">History</button>
@@ -1836,7 +1862,7 @@
                     <table id="located_systems_table" class="locate_table" style="width:100%">
                     </table>
                     <br/>
-                    <button id="located_systems_analyse" class=submit_button onclick="analyseLocatedSystem()">Analyse</button>
+                    <button id="located_systems_analyse" class=submit_button onclick="analyseLocatedSystem()">More Info</button>
                     <br><br>
                 </div>
             </div>
@@ -1850,7 +1876,7 @@
                     <table id="history_systems_table" class="locate_table" style="width:100%">
                     </table>
                     <br/>
-                    <button id="history_systems_analyse" class=submit_button onclick="analyseHistorySystem()">Analyse</button>
+                    <button id="history_systems_analyse" class=submit_button onclick="analyseHistorySystem()">More Info</button>
                     <br><br>
                 </div>
             </div>
@@ -1865,7 +1891,7 @@
                     </table>
                     <br/>
                     <p id="scanned_system_msg_box" style="display:block; text-align:left" />
-                    <button id="scanned_system_analyse" class=submit_button onclick="analyseScannedSystem()" style="display:block">Analyse</button>
+                    <button id="scanned_system_analyse" class=submit_button onclick="analyseScannedSystem()" style="display:block">More Info</button>
                     <br><br>
                 </div>
             </div>
@@ -1879,7 +1905,7 @@
                 <button class="settings_button " onclick="showScreen('Scan')">Scan</button>
                 <button class="settings_button " onclick="showScreen('LocatedSystems')">Locate</button>
                 <button class="settings_button " onclick="showScreen('History')">History</button>
-                <button class="settings_button " onclick="showScreen('Main')">Analyse</button>
+                <button class="settings_button " onclick="showScreen('Main')">More Info</button>
                 <button class="settings_button " onclick="showScreen('Settings')">Settings</button>   
             </div>
        </div>
