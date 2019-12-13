@@ -1,4 +1,14 @@
-# TrustlensMobileAppServer
+# TrustlensMobileAppClient
+
+&nbsp;
+
+## Android
+
+&nbsp;
+
+### Download Cordova and its requirements
+
+https://cordova.apache.org/docs/en/latest/guide/platforms/android/index.html
 
 &nbsp;
 
@@ -8,18 +18,20 @@ Cd into the code folder
 
 &nbsp;
 
-### Build Web Application Archive with gradle
+### Build for Android
 
 ```
-gradlew war
+cordova build android
 ```
 
 &nbsp;
 
-### Deploy Web Application Archive using Tomcat
+### Run on Android emulator or device
 
-Place .war file in tomcat webapps folder
-
-e.g. /var/lib/tomcat8/webapps for Tomcat 8 on Ubuntu 16.04
+```
+cordova run android
+```
 
 &nbsp;
+
+
